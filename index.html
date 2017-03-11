@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>GIFCREATOR</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+        <link href="style/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="container" id="app">
+            <a href="#" class="close-window" @click="closeWindow">
+                <i class="material-icons">clear</i>
+            </a>
+            <div class="col col--primary" @dragover="isDragging = true" @dragleave="isDragging = false" @drop="dropFiles">
+                <div class="title">
+                    Upload files
+                </div>
+                <div class="subtitle">
+                    Drag & Drop
+                </div>
+                <div class="add-file" :class="{ 'add-file--hover': isDragging }">
+                    <img src="img/icon_file.png" alt="file icon">
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="title">
+                    Files - {{myfiles.length}}
+                </div>
+
+                <div class="files">
+                    <div class="file" v-for="file in myfiles">
+                        <div class="file__content">
+                            <div class="file__name">
+                                {{file.name}}
+                            </div>
+                        </div>
+                        <div class="file__action"  :class="{ 'file__action--running' : file.state=='running' }">
+                            <a href="#" @click="deleteFile(file)" v-if='file.state == "waitting"'>
+                                <i class="material-icons">clear</i>
+                            </a>
+
+                            <a href="#" v-else-if='file.state == "running"'>
+                                <i class="material-icons">autorenew</i>
+                            </a>
+
+                            <a download :href="file.gif" v-else-if='file.state == "completed"'>
+                                <i class="material-icons">
+                                    file_download
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn" @click="gify">2GIF</button>
+            </div>
+        </div>
+
+        <!-- scripts -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.2/vue.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+
+</html>
