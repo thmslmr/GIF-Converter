@@ -13,4 +13,4 @@ npm i && npm run
 Preview
 ---
 
-![preview](img/preview.gif)
+![preview](src/img/preview.gif)
